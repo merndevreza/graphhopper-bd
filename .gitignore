@@ -1,0 +1,8 @@
+# large binaries and generated data
+*.jar
+data/
+graph-cache/
+
+# helper script outputs
+helper/*output*.csv
+__pycache__/

@@ -1,0 +1,48 @@
+graphhopper:
+
+  # Bangladesh-only OSM extract (Geofabrik), fetched by scripts/download.sh
+  datareader.file: data/bangladesh-latest.osm.pbf
+
+  # Routing graph, built once at first start. Delete this folder to force a re-import.
+  graph.location: graph-cache
+
+  ##### Routing Profiles #####
+
+  profiles:
+    - name: car
+      custom_model_files: [car.json]
+    - name: motorcycle
+      # Bangladesh-tuned model in custom_models/ - the built-in motorcycle.json
+      # avoids motorways (0.1x priority), inflating BD billing distances ~25%
+      custom_model_files: [motorcycle_bd.json]
+
+  # where our own custom models live
+  custom_models.directory: custom_models
+
+  # Speed mode (Contraction Hierarchies): ~1 ms per route query.
+  # Essential for billing runs (trips x candidate branches = many queries).
+  profiles_ch:
+    - profile: car
+    - profile: motorcycle
+
+  # Required by the built-in car.json / motorcycle.json / curvature.json models.
+  graph.encoded_values: car_access, car_average_speed, road_access, road_class, track_type, surface, curvature
+
+  # Two CH preparations (car, motorcycle); 2 threads keeps heap use moderate
+  # while speeding up the one-time import on a 4-core machine.
+  prepare.ch.threads: 2
+
+  # Skip ways motor vehicles can never use — smaller graph, faster import
+  # (recommended value from config-example.yml for motorized-only routing)
+  import.osm.ignored_highways: footway,construction,cycleway,path,steps
+
+server:
+  application_connectors:
+    - type: http
+      port: 8989
+      # 0.0.0.0 so the Docker port mapping can reach the service
+      bind_host: 0.0.0.0
+  admin_connectors:
+    - type: http
+      port: 8990
+      bind_host: 0.0.0.0

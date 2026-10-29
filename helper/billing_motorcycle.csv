@@ -1,0 +1,7 @@
+trip_id,trip_lat,trip_lon,branch_id,branch_name,branch_lat,branch_lon,route_km,route_minutes,straight_line_km,snap_start_m,snap_end_m,profile,error
+T-1001,23.7806,90.4194,BR001,Gulshan Branch,23.7925,90.4078,2.945,4.1,1.773,7.4,0.6,motorcycle,
+T-1002,23.8103,90.4125,BR001,Gulshan Branch,23.7925,90.4078,2.926,5.6,2.036,11.3,0.6,motorcycle,
+T-1003,23.7509,90.3898,BR003,Dhanmondi Branch,23.7461,90.3742,3.06,5.7,1.675,17.1,5.5,motorcycle,
+T-1004,23.8604,90.3963,BR004,Uttara Branch,23.8759,90.3795,6.329,10.2,2.427,2.6,1.2,motorcycle,
+T-1005,23.7104,90.4752,BR002,Motijheel Branch,23.7275,90.4123,8.618,9.8,6.68,8.8,2.0,motorcycle,
+T-1006,22.3287,91.8121,BR005,Chattogram Branch,22.3569,91.7832,4.957,5.8,4.321,24.6,2.1,motorcycle,

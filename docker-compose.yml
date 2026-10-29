@@ -1,0 +1,24 @@
+services:
+  graphhopper:
+    build: .
+    image: graphhopper-bd:11.1
+    container_name: graphhopper-bd
+    restart: unless-stopped
+    ports:
+      - "8989:8989"   # routing API + built-in web UI
+      - "8990:8990"   # admin / metrics
+    environment:
+      # Keep total under the Docker Desktop VM memory limit (defaults to half of RAM)
+      JAVA_OPTS: "-Xms512m -Xmx4g"
+    volumes:
+      - ./config.yml:/graphhopper/config.yml:ro
+      - ./custom_models:/graphhopper/custom_models:ro
+      - ./data:/graphhopper/data
+      - ./graph-cache:/graphhopper/graph-cache
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8989/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 10
+      # first start includes the full OSM import (10-20 min)
+      start_period: 40m
