@@ -1,7 +1,7 @@
 graphhopper:
 
-  # Bangladesh-only OSM extract (Geofabrik), fetched by scripts/download.sh
-  datareader.file: data/bangladesh-latest.osm.pbf
+  # Bangladesh OSM extract, locally corrected edition (Barikoi edits on Geofabrik base)
+  datareader.file: data/bangladesh-edited-latest.osm.pbf
 
   # Routing graph, built once at first start. Delete this folder to force a re-import.
   graph.location: graph-cache
